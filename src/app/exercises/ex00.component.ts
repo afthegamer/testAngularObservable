@@ -132,9 +132,28 @@ export class Ex00Component implements OnDestroy {
 
 function buildBasicsObservable$(): Observable<string> {
   return new Observable<string>((subscriber) => {
-    // TODO EX00: écris ta propre séquence (next/error/complete) et un teardown propre.
-    subscriber.error(new Error('TODO EX00: implémente basicsObservable$ dans ex00.component.ts'));
-    return () => undefined;
+    /**
+     * TODO EX00
+     * 1) Découvre les callbacks: subscriber.next(), subscriber.error(), subscriber.complete().
+     * 2) Mélange synchro/async: commence par un next sync, puis programme 2-3 emissions avec setTimeout.
+     * 3) Gère le cleanup: stocke tes timeouts et retourne une fonction qui les clear pour éviter les fuites.
+     * 4) Option: injecte une erreur contrôlée pour voir le flux s’arrêter.
+     *
+     * Exemple d’étapes possibles (remplace par ton propre code) :
+     *   const t1 = setTimeout(() => subscriber.next('tick 1'), 300);
+     *   const t2 = setTimeout(() => subscriber.next('tick 2'), 600);
+     *   const t3 = setTimeout(() => subscriber.complete(), 900);
+     *   return () => [t1, t2, t3].forEach(clearTimeout);
+     *
+     * Pendant le dev, tu peux aussi:
+     *   - essayer subscriber.error(new Error('boom')) pour voir la différence avec complete
+     *   - remplacer setTimeout par setInterval et ajouter un unsubscribe propre
+     */
+    subscriber.error(new Error('TODO EX00: remplace ce bloc par tes emissions et ton teardown'));
+
+    return () => {
+      // TODO: nettoie tes timeouts/intervals/ressources ici
+    };
   });
 }
 
@@ -148,11 +167,12 @@ export const EX00_EXERCISE: ObservableExercise<string> = {
     'Emets tes valeurs sync puis async (setTimeout/interval) via subscriber.next().',
     'Termine proprement avec subscriber.complete() ou teste un subscriber.error().',
     'Retourne une fonction de nettoyage (clearTimeout/interval, abort...).',
-    'Remplace l erreur "TODO EX00" par ta propre séquence.',
+    'Teste un flux qui se termine, puis un flux qui error, pour voir les comportements.',
   ],
   operators: ['Observable', 'next', 'complete', 'unsubscribe'],
   expected: 'Une courte séquence personnalisée puis complete (ou error selon ton test).',
-  previewNote: 'Bouton = subscribe sur basicsObservable$() (échouera tant que tu gardes le TODO).',
+  previewNote:
+    'Bouton = subscribe sur basicsObservable$() (échouera tant que le TODO est présent). Remplace par ta séquence.',
   previewTimeoutMs: 2200,
   preview: () => buildBasicsObservable$(),
 };
