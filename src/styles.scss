@@ -22,3 +22,27 @@
   margin: 0.25rem 0;
   line-height: 1.4;
 }
+
+.exercise-card.success,
+.detail-card.success {
+  border-color: #2fd4b5;
+  box-shadow: 0 10px 30px rgba(47, 212, 181, 0.35), 0 0 0 1px rgba(47, 212, 181, 0.4);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.exercise-card.success,
+.detail-card.success {
+  animation: successPulse 0.6s ease;
+}

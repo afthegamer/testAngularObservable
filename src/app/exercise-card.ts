@@ -10,6 +10,7 @@ import { ObservableExercise } from './exercises/exercise.types';
   styleUrl: './exercise-card.scss',
   host: {
     class: 'exercise-card',
+    '[class.success]': 'successFlash()',
   },
 })
 export class ExerciseCard implements OnDestroy {
@@ -17,9 +18,11 @@ export class ExerciseCard implements OnDestroy {
 
   readonly logs = signal<string[]>([]);
   readonly running = signal(false);
+   readonly successFlash = signal(false);
 
   private previewSubscription: Subscription | null = null;
   private timeoutId: number | null = null;
+  private successTimeoutId: number | null = null;
 
   runPreview(): void {
     const exercise = this.exercise();
@@ -28,6 +31,7 @@ export class ExerciseCard implements OnDestroy {
     }
 
     this.stopPreview();
+    this.clearSuccessFlash();
 
     const initialLog = [exercise.previewNote];
     this.logs.set(initialLog);
@@ -58,6 +62,7 @@ export class ExerciseCard implements OnDestroy {
         snapshot.push('complete');
         this.logs.set([...snapshot]);
         this.running.set(false);
+        this.triggerSuccess();
       },
     });
 
@@ -94,6 +99,7 @@ export class ExerciseCard implements OnDestroy {
       this.timeoutId = null;
     }
     this.running.set(false);
+    this.clearSuccessFlash();
   }
 
   private stringify(value: unknown): string {
@@ -110,5 +116,23 @@ export class ExerciseCard implements OnDestroy {
     } catch {
       return String(value);
     }
+  }
+
+  private triggerSuccess(): void {
+    this.clearSuccessFlash();
+    this.successFlash.set(true);
+    const id = setTimeout(() => {
+      this.successFlash.set(false);
+      this.successTimeoutId = null;
+    }, 1200);
+    this.successTimeoutId = Number(id);
+  }
+
+  private clearSuccessFlash(): void {
+    if (this.successTimeoutId !== null) {
+      clearTimeout(this.successTimeoutId);
+      this.successTimeoutId = null;
+    }
+    this.successFlash.set(false);
   }
 }

@@ -2,7 +2,7 @@
   <a class="back-link" routerLink="/">← Retour à la liste</a>
 
   @if (exercise) {
-    <article class="detail-card">
+    <article class="detail-card" [class.success]="successFlash()">
       <div class="exercise-head">
         <span class="pill">Exercice {{ exercise.id }}</span>
         <div class="title-block">

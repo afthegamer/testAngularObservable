@@ -14,15 +14,18 @@ import { EX02_EXERCISE } from './ex02.data';
 export class Ex02Component implements OnDestroy {
   readonly logs = signal<string[]>([]);
   readonly running = signal(false);
+  readonly successFlash = signal(false);
   readonly exercise: ObservableExercise = EX02_EXERCISE;
 
   private previewSubscription: Subscription | null = null;
   private timeoutId: number | null = null;
+  private successTimeoutId: number | null = null;
 
   runPreview(): void {
     const exercise = this.exercise;
 
     this.stopPreview();
+    this.clearSuccessFlash();
 
     const initialLog = [exercise.previewNote];
     this.logs.set(initialLog);
@@ -53,6 +56,7 @@ export class Ex02Component implements OnDestroy {
         snapshot.push('complete');
         this.logs.set([...snapshot]);
         this.running.set(false);
+        this.triggerSuccess();
       },
     });
 
@@ -89,6 +93,7 @@ export class Ex02Component implements OnDestroy {
       this.timeoutId = null;
     }
     this.running.set(false);
+    this.clearSuccessFlash();
   }
 
   private stringify(value: unknown): string {
@@ -105,5 +110,23 @@ export class Ex02Component implements OnDestroy {
     } catch {
       return String(value);
     }
+  }
+
+  private triggerSuccess(): void {
+    this.clearSuccessFlash();
+    this.successFlash.set(true);
+    const id = setTimeout(() => {
+      this.successFlash.set(false);
+      this.successTimeoutId = null;
+    }, 1200);
+    this.successTimeoutId = Number(id);
+  }
+
+  private clearSuccessFlash(): void {
+    if (this.successTimeoutId !== null) {
+      clearTimeout(this.successTimeoutId);
+      this.successTimeoutId = null;
+    }
+    this.successFlash.set(false);
   }
 }
