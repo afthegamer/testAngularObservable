@@ -1,16 +1,5 @@
-import {
-  Observable,
-  concatMap,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  from,
-  map,
-  switchMap,
-  timer,
-  toArray
-} from 'rxjs';
-import { Customer, ObservableExercise } from './exercise.types';
+import { concatMap, from, map, timer } from 'rxjs';
+import { Customer } from './exercise.types';
 
 export const EX03_CUSTOMERS: Customer[] = [
   { id: 1, name: 'Lea', city: 'Lyon', active: true, tags: ['b2c', 'vip'] },
@@ -24,29 +13,3 @@ export const EX03_SEARCH_TERMS = ['l', 'le', 'lea', 'lea', 'lea ', 'lea', 'lean'
 export const ex03DemoSearchTerms$ = from(EX03_SEARCH_TERMS).pipe(
   concatMap((term, index) => timer(index * 180).pipe(map(() => term)))
 );
-
-export function searchCustomers$(_terms$: Observable<string>): Observable<string[]> {
-  return new Observable<string[]>((subscriber) => {
-    subscriber.error(new Error('TODO EX03: implémente searchCustomers$()'));
-    return () => undefined;
-  });
-}
-
-export const EX03_EXERCISE: ObservableExercise<string[]> = {
-  id: '03',
-  title: 'Auto-complete reactive',
-  target: 'searchCustomers$(terms$)',
-  goal:
-    'Rejoue une saisie utilisateur et retourne des suggestions (nom ou ville) en fonction des CUSTOMERS.',
-  steps: [
-    'Debounce les termes (200-300ms) et ignore les doublons consecutifs.',
-    'Ignore les chaines vides, limite a 3 suggestions.',
-    'Utilise switchMap sur CUSTOMERS (filtre name/city incluant le terme en lowercase).',
-    'Expose un Observable<string[]> pret pour un AsyncPipe.',
-  ],
-  operators: ['debounceTime', 'filter', 'distinctUntilChanged', 'switchMap', 'map', 'take'],
-  expected: 'Quand terms$ passe par "lea" tu devrais voir Lea et Anais.',
-  previewNote: 'Bouton = searchCustomers$(demoSearchTerms$).',
-  previewTimeoutMs: 5000,
-  preview: () => searchCustomers$(ex03DemoSearchTerms$),
-};

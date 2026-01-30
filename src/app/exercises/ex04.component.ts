@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX04_EXERCISE } from './ex04.data';
+import { ex04CapacityChanges$, ex04PackingEvents$ } from './ex04.data';
 
 @Component({
   selector: 'app-ex04',
@@ -130,3 +130,29 @@ export class Ex04Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildPackingDashboard$(): Observable<unknown> {
+  // TODO EX04: combine ex04PackingEvents$ et ex04CapacityChanges$ (scan + combineLatest).
+  return new Observable<unknown>((subscriber) => {
+    subscriber.error(new Error('TODO EX04: implémente packingDashboard$ dans ex04.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX04_EXERCISE: ObservableExercise<unknown> = {
+  id: '04',
+  title: 'Dashboard combine',
+  target: 'packingDashboard$(events$, capacity$)',
+  goal:
+    'Combiner le flux de colis (queued/packed) avec la capacite disponible pour afficher backlog et ready.',
+  steps: [
+    'Transforme events$ en compteurs backlog/ready via scan.',
+    'StartWith pour initialiser la capacite avant combineLatest.',
+    'Combine capacity$ pour produire { ready, backlog, capacity }.'
+  ],
+  operators: ['scan', 'map', 'startWith', 'combineLatest'],
+  expected: 'Avec les flux fournis: backlog commence a 1, remonte a 2 puis retombe.',
+  previewNote: 'Bouton = packingDashboard$(packingEvents$, capacityChanges$).',
+  previewTimeoutMs: 5200,
+  preview: () => buildPackingDashboard$(),
+};

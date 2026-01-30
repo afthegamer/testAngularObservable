@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX03_EXERCISE } from './ex03.data';
+import { ex03DemoSearchTerms$ } from './ex03.data';
 
 @Component({
   selector: 'app-ex03',
@@ -130,3 +130,30 @@ export class Ex03Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildSearchCustomers$(): Observable<string[]> {
+  // TODO EX03: applique debounce/distinctUntilChanged/filter/switchMap sur ex03DemoSearchTerms$ + EX03_CUSTOMERS.
+  return new Observable<string[]>((subscriber) => {
+    subscriber.error(new Error('TODO EX03: implémente searchCustomers$ dans ex03.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX03_EXERCISE: ObservableExercise<string[]> = {
+  id: '03',
+  title: 'Auto-complete reactive',
+  target: 'searchCustomers$(terms$)',
+  goal:
+    'Rejoue une saisie utilisateur et retourne des suggestions (nom ou ville) en fonction des CUSTOMERS.',
+  steps: [
+    'Debounce les termes (200-300ms) et ignore les doublons consecutifs.',
+    'Ignore les chaines vides, limite a 3 suggestions.',
+    'Utilise switchMap sur EX03_CUSTOMERS (filtre name/city incluant le terme en lowercase).',
+    'Expose un Observable<string[]> pret pour un AsyncPipe.',
+  ],
+  operators: ['debounceTime', 'filter', 'distinctUntilChanged', 'switchMap', 'map', 'take'],
+  expected: 'Quand terms$ passe par "lea" tu devrais voir Lea et Anais.',
+  previewNote: 'Bouton = searchCustomers$(demoSearchTerms$).',
+  previewTimeoutMs: 5000,
+  preview: () => buildSearchCustomers$(),
+};

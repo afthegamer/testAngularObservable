@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX05_EXERCISE } from './ex05.data';
+import { ex05FlakyRequest$ } from './ex05.data';
 
 @Component({
   selector: 'app-ex05',
@@ -130,3 +130,30 @@ export class Ex05Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildResilientPing$(): Observable<string> {
+  // TODO EX05: applique timeout/retry/catchError sur ex05FlakyRequest$ avec startWith/loading.
+  return new Observable<string>((subscriber) => {
+    subscriber.error(new Error('TODO EX05: implémente resilientPing$ dans ex05.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX05_EXERCISE: ObservableExercise<string> = {
+  id: '05',
+  title: 'Resilience et erreurs',
+  target: 'resilientPing$()',
+  goal:
+    'Encapsuler flakyRequest$ pour gerer timeout, retries et fallback lisible (ex: message user-friendly).',
+  steps: [
+    'Demarre par startWith("loading").',
+    'Applique timeout ou un retry({ count: 1 }) sur le flux.',
+    'Transforme server-error/timeout en catchError avec une valeur de repli.',
+    'Option: utilise finalize pour tracer la fin du flux.',
+  ],
+  operators: ['startWith', 'timeout', 'retry', 'catchError', 'map'],
+  expected: 'Un flux propre qui finit sur un message utile meme en cas d erreur.',
+  previewNote: 'Bouton = resilientPing$() qui consomme flakyRequest$.',
+  previewTimeoutMs: 4200,
+  preview: () => buildResilientPing$(),
+};

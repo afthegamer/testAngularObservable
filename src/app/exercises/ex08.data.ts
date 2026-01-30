@@ -1,28 +1,5 @@
-import {
-  Observable,
-  catchError,
-  combineLatest,
-  concatMap,
-  filter,
-  from,
-  map,
-  retry,
-  scan,
-  share,
-  shareReplay,
-  startWith,
-  timeout,
-  timer,
-  of
-} from 'rxjs';
-import {
-  ControlTowerSnapshot,
-  FlakyStep,
-  ObservableExercise,
-  OrderEvent,
-  PackingDashboard,
-  PackingEvent
-} from './exercise.types';
+import { concatMap, from, map, timer } from 'rxjs';
+import { FlakyStep, OrderEvent, PackingEvent } from './exercise.types';
 
 export const EX08_ORDER_EVENTS: OrderEvent[] = [
   { delayMs: 200, amount: 42, status: 'processing' },
@@ -69,52 +46,3 @@ export const ex08CapacityChanges$ = from(EX08_CAPACITY_STEPS).pipe(
 export const ex08FlakyRequest$ = from(EX08_FLAKY_REQUEST_SCRIPT).pipe(
   concatMap((step) => timer(step.delayMs).pipe(map(() => step)))
 );
-
-export function runningRevenue$(_events$: Observable<OrderEvent>): Observable<number> {
-  return new Observable<number>((subscriber) => {
-    subscriber.error(new Error('TODO EX08: implémente runningRevenue$()'));
-    return () => undefined;
-  });
-}
-
-export function packingDashboard$(
-  _events$: Observable<PackingEvent>,
-  _capacity$: Observable<number>
-): Observable<PackingDashboard> {
-  return new Observable<PackingDashboard>((subscriber) => {
-    subscriber.error(new Error('TODO EX08: implémente packingDashboard$()'));
-    return () => undefined;
-  });
-}
-
-export function controlTower$(
-  _events$: Observable<OrderEvent>,
-  _packing$: Observable<PackingEvent>,
-  _capacity$: Observable<number>,
-  _flaky$: Observable<FlakyStep>
-): Observable<ControlTowerSnapshot> {
-  return new Observable<ControlTowerSnapshot>((subscriber) => {
-    subscriber.error(new Error('TODO EX08: implémente controlTower$()'));
-    return () => undefined;
-  });
-}
-
-export const EX08_EXERCISE: ObservableExercise<ControlTowerSnapshot> = {
-  id: '08',
-  title: 'Tour de controle temps reel',
-  target: 'controlTower$(events$, packing$, capacity$, flaky$)',
-  goal:
-    'Consolider revenus cumulés, backlog colis/capacite et statut reseau dans un seul Observable partage.',
-  steps: [
-    'Partage orderEvents$ pour produire un cumul (runningRevenue$) sans double abonnement.',
-    'Reutilise packingDashboard$ pour backlog/ready/capacity.',
-    'CombineLatest avec un flux derive de flakyRequest$ traite (timeout/retry/catchError) pour l etat service.',
-    'ShareReplay(1) pour eviter de relancer la sequence HTTP a chaque nouveau subscriber.',
-  ],
-  operators: ['share', 'shareReplay', 'combineLatest', 'withLatestFrom', 'map'],
-  expected: 'Un flux d objets { revenue, backlog, ready, capacity, service } se met a jour en live.',
-  previewNote: 'Bouton = controlTower$(orderEvents$, packingEvents$, capacityChanges$, flakyRequest$).',
-  previewTimeoutMs: 5200,
-  preview: () =>
-    controlTower$(ex08OrderEvents$, ex08PackingEvents$, ex08CapacityChanges$, ex08FlakyRequest$),
-};

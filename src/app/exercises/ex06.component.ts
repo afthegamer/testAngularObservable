@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX06_EXERCISE } from './ex06.data';
+import { ex06OrderEvents$ } from './ex06.data';
 
 @Component({
   selector: 'app-ex06',
@@ -130,3 +130,30 @@ export class Ex06Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildWindowedRevenue$(): Observable<number> {
+  // TODO EX06: bufferTime ex06OrderEvents$ et somme les montants (ignore cancelled).
+  return new Observable<number>((subscriber) => {
+    subscriber.error(new Error('TODO EX06: implémente windowedRevenue$ dans ex06.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX06_EXERCISE: ObservableExercise<number> = {
+  id: '06',
+  title: 'Fenetre glissante de CA',
+  target: 'windowedRevenue$(events$)',
+  goal:
+    'Calculer un cumul glissant des montants sur orderEvents$, avec fenetres chevauchees (600ms) et pas 300ms.',
+  steps: [
+    'Filtre les annulations, map vers les montants.',
+    'BufferTime(600, 300) pour capter les fenetres chevauchees.',
+    'Transforme chaque buffer en somme, ignores les buffers vides.',
+    'Option: distinctUntilChanged pour ne loguer que les variations.',
+  ],
+  operators: ['filter', 'map', 'bufferTime', 'reduce', 'distinctUntilChanged'],
+  expected: 'Avec ORDER_EVENTS: premiere fenetre ~123, puis ~111, 77, 47 (selon filtrage cancelled).',
+  previewNote: 'Bouton = windowedRevenue$(orderEvents$).',
+  previewTimeoutMs: 4200,
+  preview: () => buildWindowedRevenue$(),
+};

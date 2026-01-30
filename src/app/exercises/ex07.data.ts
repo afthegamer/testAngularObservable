@@ -1,5 +1,4 @@
-import { Observable, filter, from, groupBy, map, mergeMap, reduce, toArray } from 'rxjs';
-import { CityBreakdown, Customer, ObservableExercise, Order } from './exercise.types';
+import { Customer, Order } from './exercise.types';
 
 export const EX07_CUSTOMERS: Customer[] = [
   { id: 1, name: 'Lea', city: 'Lyon', active: true, tags: ['b2c', 'vip'] },
@@ -17,29 +16,3 @@ export const EX07_ORDERS: Order[] = [
   { id: 6, customerId: 1, total: 27, status: 'cancelled', createdAt: '2024-11-01T11:30:00Z' },
   { id: 7, customerId: 4, total: 15, status: 'processing', createdAt: '2024-11-01T12:05:00Z' },
 ];
-
-export function cityLeaderboard$(): Observable<CityBreakdown[]> {
-  return new Observable<CityBreakdown[]>((subscriber) => {
-    subscriber.error(new Error('TODO EX07: implémente cityLeaderboard$()'));
-    return () => undefined;
-  });
-}
-
-export const EX07_EXERCISE: ObservableExercise<CityBreakdown[]> = {
-  id: '07',
-  title: 'Leaderboard par ville',
-  target: 'cityLeaderboard$()',
-  goal:
-    'Construire un tableau par ville avec nombre de clients actifs et montants commandes (shipped/processing) classes.',
-  steps: [
-    'Parts de CUSTOMERS et ORDERS en Observables froids (from).',
-    'GroupBy sur city, fusionne avec mergeMap + reduce pour accumuler actifs et totaux.',
-    'Ignore les commandes annulees, distingue shippedTotal et processingCount.',
-    'ToArray puis sort par shippedTotal desc pour afficher le classement.',
-  ],
-  operators: ['from', 'groupBy', 'mergeMap', 'reduce', 'toArray', 'sort'],
-  expected: 'Paris ne devrait pas apparaitre (Samir inactif), Lyon et Bordeaux en tete.',
-  previewNote: 'Bouton = cityLeaderboard$().',
-  previewTimeoutMs: 3800,
-  preview: () => cityLeaderboard$(),
-};

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX02_EXERCISE } from './ex02.data';
+import { ex02OrderEvents$ } from './ex02.data';
 
 @Component({
   selector: 'app-ex02',
@@ -130,3 +130,28 @@ export class Ex02Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildRunningRevenue$(): Observable<number> {
+  // TODO EX02: cumule les montants de ex02OrderEvents$ en ignorant les cancellations.
+  return new Observable<number>((subscriber) => {
+    subscriber.error(new Error('TODO EX02: implémente runningRevenue$ dans ex02.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX02_EXERCISE: ObservableExercise<number> = {
+  id: '02',
+  title: 'Cumul en temps reel',
+  target: 'runningRevenue$(events$)',
+  goal: 'Cumuler les montants des evenements de commande en ignorant les annulations et emettre chaque etape.',
+  steps: [
+    'Utilise ex02OrderEvents$ comme source, filtre status "cancelled".',
+    'Map sur amount, puis scan pour produire un cumul progressif.',
+    'Ajoute un startWith(0) si tu veux voir le point de depart.',
+    'Option: utilise tap pour logger pendant le dev.',
+  ],
+  operators: ['filter', 'map', 'scan', 'startWith'],
+  expected: 'Avec ORDER_EVENTS : 42 -> 60 -> 123 -> 153.',
+  previewNote: 'Bouton = runningRevenue$(orderEvents$).',
+  preview: () => buildRunningRevenue$(),
+};

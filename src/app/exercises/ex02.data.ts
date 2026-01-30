@@ -1,5 +1,5 @@
-import { Observable, filter, from, map, scan, concatMap, timer } from 'rxjs';
-import { ObservableExercise, OrderEvent } from './exercise.types';
+import { concatMap, from, map, timer } from 'rxjs';
+import { OrderEvent } from './exercise.types';
 
 export const EX02_ORDER_EVENTS: OrderEvent[] = [
   { delayMs: 200, amount: 42, status: 'processing' },
@@ -13,27 +13,3 @@ export const EX02_ORDER_EVENTS: OrderEvent[] = [
 export const ex02OrderEvents$ = from(EX02_ORDER_EVENTS).pipe(
   concatMap((event) => timer(event.delayMs).pipe(map(() => event)))
 );
-
-export function runningRevenue$(_events$: Observable<OrderEvent>): Observable<number> {
-  return new Observable<number>((subscriber) => {
-    subscriber.error(new Error('TODO EX02: implémente runningRevenue$()'));
-    return () => undefined;
-  });
-}
-
-export const EX02_EXERCISE: ObservableExercise<number> = {
-  id: '02',
-  title: 'Cumul en temps reel',
-  target: 'runningRevenue$(events$)',
-  goal: 'Cumuler les montants des evenements de commande en ignorant les annulations et emettre chaque etape.',
-  steps: [
-    'Utilise orderEvents$ comme source, filtre status "cancelled".',
-    'Map sur amount, puis scan pour produire un cumul progressif.',
-    'Ajoute un startWith(0) si tu veux voir le point de depart.',
-    'Option: utilise tap pour logger pendant le dev.',
-  ],
-  operators: ['filter', 'map', 'scan', 'startWith'],
-  expected: 'Avec ORDER_EVENTS : 42 -> 60 -> 123 -> 153.',
-  previewNote: 'Bouton = runningRevenue$(orderEvents$).',
-  preview: () => runningRevenue$(ex02OrderEvents$),
-};

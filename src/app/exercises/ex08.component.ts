@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX08_EXERCISE } from './ex08.data';
+import { ex08CapacityChanges$, ex08FlakyRequest$, ex08OrderEvents$, ex08PackingEvents$ } from './ex08.data';
 
 @Component({
   selector: 'app-ex08',
@@ -130,3 +130,30 @@ export class Ex08Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildControlTower$(): Observable<unknown> {
+  // TODO EX08: compose runningRevenue$, packingDashboard$ et etat reseau (timeout/retry/catchError) en un seul flux.
+  return new Observable<unknown>((subscriber) => {
+    subscriber.error(new Error('TODO EX08: implémente controlTower$ dans ex08.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX08_EXERCISE: ObservableExercise<unknown> = {
+  id: '08',
+  title: 'Tour de controle temps reel',
+  target: 'controlTower$(events$, packing$, capacity$, flaky$)',
+  goal:
+    'Consolider revenus cumulés, backlog colis/capacite et statut reseau dans un seul Observable partage.',
+  steps: [
+    'Partage orderEvents$ pour produire un cumul (runningRevenue$) sans double abonnement.',
+    'Reutilise packingDashboard$ pour backlog/ready/capacity.',
+    'CombineLatest avec un flux derive de flakyRequest$ traite (timeout/retry/catchError) pour l etat service.',
+    'ShareReplay(1) pour eviter de relancer la sequence HTTP a chaque nouveau subscriber.',
+  ],
+  operators: ['share', 'shareReplay', 'combineLatest', 'withLatestFrom', 'map'],
+  expected: 'Un flux d objets { revenue, backlog, ready, capacity, service } se met a jour en live.',
+  previewNote: 'Bouton = controlTower$(orderEvents$, packingEvents$, capacityChanges$, flakyRequest$).',
+  previewTimeoutMs: 5200,
+  preview: () => buildControlTower$(),
+};

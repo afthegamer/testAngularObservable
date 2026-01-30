@@ -1,5 +1,5 @@
-import { Observable, combineLatest, concatMap, from, map, scan, startWith, timer } from 'rxjs';
-import { ObservableExercise, PackingDashboard, PackingEvent } from './exercise.types';
+import { concatMap, from, map, timer } from 'rxjs';
+import { PackingEvent } from './exercise.types';
 
 export const EX04_PACKING_EVENTS: PackingEvent[] = [
   { delayMs: 0, type: 'queued' },
@@ -23,31 +23,3 @@ export const ex04PackingEvents$ = from(EX04_PACKING_EVENTS).pipe(
 export const ex04CapacityChanges$ = from(EX04_CAPACITY_STEPS).pipe(
   concatMap((step) => timer(step.delayMs).pipe(map(() => step.capacity)))
 );
-
-export function packingDashboard$(
-  _events$: Observable<PackingEvent>,
-  _capacity$: Observable<number>
-): Observable<PackingDashboard> {
-  return new Observable<PackingDashboard>((subscriber) => {
-    subscriber.error(new Error('TODO EX04: implémente packingDashboard$()'));
-    return () => undefined;
-  });
-}
-
-export const EX04_EXERCISE: ObservableExercise<PackingDashboard> = {
-  id: '04',
-  title: 'Dashboard combine',
-  target: 'packingDashboard$(events$, capacity$)',
-  goal:
-    'Combiner le flux de colis (queued/packed) avec la capacite disponible pour afficher backlog et ready.',
-  steps: [
-    'Transforme events$ en deux compteurs: backlog (queued - packed) et ready (packed).',
-    'StartWith pour initialiser la capacite avant combineLatest.',
-    'Combine capacity$ pour produire { ready, backlog, capacity }.'
-  ],
-  operators: ['scan', 'map', 'startWith', 'combineLatest'],
-  expected: 'Avec les flux fournis: backlog commence a 1, remonte a 2 puis retombe.',
-  previewNote: 'Bouton = packingDashboard$(packingEvents$, capacityChanges$).',
-  previewTimeoutMs: 5200,
-  preview: () => packingDashboard$(ex04PackingEvents$, ex04CapacityChanges$),
-};

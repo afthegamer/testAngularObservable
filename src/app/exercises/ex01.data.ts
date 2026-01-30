@@ -1,5 +1,4 @@
-import { Observable, filter, from, map, toArray } from 'rxjs';
-import { Customer, ObservableExercise, Order } from './exercise.types';
+import { Customer, Order } from './exercise.types';
 
 export const EX01_CUSTOMERS: Customer[] = [
   { id: 1, name: 'Lea', city: 'Lyon', active: true, tags: ['b2c', 'vip'] },
@@ -17,29 +16,3 @@ export const EX01_ORDERS: Order[] = [
   { id: 6, customerId: 1, total: 27, status: 'cancelled', createdAt: '2024-11-01T11:30:00Z' },
   { id: 7, customerId: 4, total: 15, status: 'processing', createdAt: '2024-11-01T12:05:00Z' },
 ];
-
-export function activeCustomers$(): Observable<string[]> {
-  return new Observable<string[]>((subscriber) => {
-    subscriber.error(new Error('TODO EX01: implémente activeCustomers$()'));
-    return () => undefined;
-  });
-}
-
-export const EX01_EXERCISE: ObservableExercise<string[]> = {
-  id: '01',
-  title: 'Flux froid : clients actifs et ordres',
-  target: 'activeCustomers$()',
-  goal:
-    'A partir des donnees locales, emettre un tableau de libelles pour les clients actifs et leur nombre de commandes.',
-  steps: [
-    'Partir de CUSTOMERS et ORDERS (voir ex01.component.ts).',
-    'Filtrer uniquement les clients actifs, ignorer les commandes annulees.',
-    'Construire un libelle "Nom (x commandes)" et trier par nombre de commandes decroissant.',
-    'Retourner le tout sous forme d Observable froid (emission unique d un tableau).',
-  ],
-  operators: ['from', 'filter', 'map', 'toArray', 'sort'],
-  expected: 'Exemple attendu : ["Lea (3 commandes)", "Tim (2 commandes)", "Anais (2 commandes)"]',
-  previewNote: 'Bouton = subscribe sur activeCustomers$().',
-  preview: () => activeCustomers$(),
-  previewTimeoutMs: 3500,
-};

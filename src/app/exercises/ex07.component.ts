@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX07_EXERCISE } from './ex07.data';
+import { EX07_CUSTOMERS, EX07_ORDERS } from './ex07.data';
 
 @Component({
   selector: 'app-ex07',
@@ -130,3 +130,30 @@ export class Ex07Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
+
+function buildCityLeaderboard$(): Observable<unknown> {
+  // TODO EX07: groupBy/mergeMap/reduce sur EX07_CUSTOMERS + EX07_ORDERS pour produire le classement.
+  return new Observable<unknown>((subscriber) => {
+    subscriber.error(new Error('TODO EX07: implémente cityLeaderboard$ dans ex07.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX07_EXERCISE: ObservableExercise<unknown> = {
+  id: '07',
+  title: 'Leaderboard par ville',
+  target: 'cityLeaderboard$()',
+  goal:
+    'Construire un tableau par ville avec nombre de clients actifs et montants commandes (shipped/processing) classes.',
+  steps: [
+    'Parts de EX07_CUSTOMERS et EX07_ORDERS en Observables froids (from).',
+    'GroupBy sur city, fusionne avec mergeMap + reduce pour accumuler actifs et totaux.',
+    'Ignore les commandes annulees, distingue shippedTotal et processingCount.',
+    'ToArray puis sort par shippedTotal desc pour afficher le classement.',
+  ],
+  operators: ['from', 'groupBy', 'mergeMap', 'reduce', 'toArray', 'sort'],
+  expected: 'Paris ne devrait pas apparaitre (Samir inactif), Lyon et Bordeaux en tete.',
+  previewNote: 'Bouton = cityLeaderboard$().',
+  previewTimeoutMs: 3800,
+  preview: () => buildCityLeaderboard$(),
+};

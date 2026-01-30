@@ -1,8 +1,8 @@
 import { Component, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableExercise } from './exercise.types';
-import { EX01_EXERCISE } from './ex01.data';
+import { EX01_CUSTOMERS, EX01_ORDERS } from './ex01.data';
 
 @Component({
   selector: 'app-ex01',
@@ -130,4 +130,31 @@ export class Ex01Component implements OnDestroy {
     this.successFlash.set(false);
   }
 }
- 
+
+function buildActiveCustomers$(): Observable<string[]> {
+  // TODO EX01: transforme EX01_CUSTOMERS et EX01_ORDERS en Observable (from/filter/map/toArray...).
+  // Filtre les inactifs et les commandes annulées, tri décroissant sur le nombre de commandes.
+  return new Observable<string[]>((subscriber) => {
+    subscriber.error(new Error('TODO EX01: implémente activeCustomers$ dans ex01.component.ts'));
+    return () => undefined;
+  });
+}
+
+export const EX01_EXERCISE: ObservableExercise<string[]> = {
+  id: '01',
+  title: 'Flux froid : clients actifs et ordres',
+  target: 'activeCustomers$()',
+  goal:
+    'A partir des donnees locales, emettre un tableau de libelles pour les clients actifs et leur nombre de commandes.',
+  steps: [
+    'Partir de EX01_CUSTOMERS et EX01_ORDERS (voir ex01.component.ts).',
+    'Filtrer uniquement les clients actifs, ignorer les commandes annulees.',
+    'Construire un libelle "Nom (x commandes)" et trier par nombre de commandes decroissant.',
+    'Retourner le tout sous forme d Observable froid (emission unique d un tableau).',
+  ],
+  operators: ['from', 'filter', 'map', 'toArray', 'sort'],
+  expected: 'Exemple attendu : ["Lea (3 commandes)", "Tim (2 commandes)", "Anais (2 commandes)"]',
+  previewNote: 'Bouton = subscribe sur activeCustomers$().',
+  preview: () => buildActiveCustomers$(),
+  previewTimeoutMs: 3500,
+};
