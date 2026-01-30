@@ -1,0 +1,24 @@
+/* Global utility styles */
+.label {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #8fb8ff;
+  margin: 0 0 0.3rem;
+}
+
+.code {
+  font-family: 'JetBrains Mono', Menlo, Consolas, monospace;
+  background: #0e243d;
+  color: #a5fff2;
+  padding: 0.35rem 0.5rem;
+  border-radius: 10px;
+  display: inline-block;
+  margin: 0.15rem 0;
+}
+
+.hint {
+  color: #9fb7d7;
+  margin: 0.25rem 0;
+  line-height: 1.4;
+}

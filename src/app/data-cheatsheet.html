@@ -1,0 +1,14 @@
+<div class="data-card">
+  <p class="label">Données disponibles</p>
+  <ul>
+@for (item of datasets(); track item) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</div>
+<div class="data-card">
+  <p class="label">Pistes de test rapide</p>
+@for (tip of tips(); track tip) {
+    <p class="hint">{{ tip }}</p>
+  }
+</div>

@@ -1,0 +1,6 @@
+@for (exercise of exercises(); track exercise.id) {
+  <div class="exercise-item">
+    <app-exercise-card [exercise]="exercise"></app-exercise-card>
+    <a class="detail-link" [routerLink]="['/exercise', exercise.id]">Ouvrir en détail</a>
+  </div>
+}

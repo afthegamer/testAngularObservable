@@ -1,0 +1,47 @@
+<article class="card-shell">
+  <div class="exercise-head">
+    <span class="pill">Exercice {{ exercise().id }}</span>
+    <div class="title-block">
+      <p class="label">Fonction cible</p>
+      <p class="code">{{ exercise().target }}</p>
+      <h2>{{ exercise().title }}</h2>
+    </div>
+  </div>
+
+  <p class="goal">{{ exercise().goal }}</p>
+
+  <div class="operators">
+    @for (op of exercise().operators; track op) {
+      <span class="chip">{{ op }}</span>
+    }
+  </div>
+
+  <div class="steps">
+    <p class="label">Checklist</p>
+    <ul>
+      @for (step of exercise().steps; track step) {
+        <li>{{ step }}</li>
+      }
+    </ul>
+  </div>
+
+  @if (exercise().expected) {
+    <p class="expected">{{ exercise().expected }}</p>
+  }
+  <p class="hint">{{ exercise().previewNote }}</p>
+
+  <div class="preview">
+    <button class="ghost" (click)="runPreview()" [disabled]="running()">
+      Rejouer le flux
+    </button>
+    <span class="inline-hint">fenetre de {{ exercise().previewTimeoutMs ?? 4000 }} ms</span>
+  </div>
+
+  @if (logs().length) {
+    <div class="log">
+      @for (log of logs(); track $index) {
+        <div class="log-line">{{ log }}</div>
+      }
+    </div>
+  }
+</article>
