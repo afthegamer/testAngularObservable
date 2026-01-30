@@ -1,4 +1,5 @@
 import { ObservableExercise } from './exercise.types';
+import { EX00_EXERCISE } from './ex00.data';
 import { EX01_EXERCISE } from './ex01.data';
 import { EX02_EXERCISE } from './ex02.data';
 import { EX03_EXERCISE } from './ex03.data';
@@ -9,6 +10,7 @@ import { EX07_EXERCISE } from './ex07.data';
 import { EX08_EXERCISE } from './ex08.data';
 
 export const EXERCISE_LIST: ObservableExercise[] = [
+  EX00_EXERCISE,
   EX01_EXERCISE,
   EX02_EXERCISE,
   EX03_EXERCISE,

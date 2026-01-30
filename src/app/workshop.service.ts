@@ -18,8 +18,8 @@ export class WorkshopService {
   readonly heroCards: HeroCard[] = [
     {
       label: 'Fichiers a modifier',
-      code: 'src/app/exercises/ex01.component.ts',
-      hint: '1 composant par exercice (ex01...ex08), logique/preview TODO a completer',
+      code: 'src/app/exercises/ex00.component.ts (intro) puis ex01...ex08',
+      hint: '1 composant par exercice, logique/preview TODO a completer',
     },
     {
       label: 'Comment valider',

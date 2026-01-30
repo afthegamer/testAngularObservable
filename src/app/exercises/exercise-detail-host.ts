@@ -37,6 +37,8 @@ export class ExerciseDetailHost {
 
   private lazyImportById(id: string): Promise<Type<unknown> | null> {
     switch (id) {
+      case '00':
+        return import('./ex00.component').then((m) => m.Ex00Component);
       case '01':
         return import('./ex01.component').then((m) => m.Ex01Component);
       case '02':
