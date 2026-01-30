@@ -3,6 +3,10 @@ import { ObservableExercise } from './exercise.types';
 
 export function basicsObservable$(): Observable<string> {
   return new Observable<string>((subscriber) => {
+    // TODO: personnalise les emissions pour t'entraîner
+    // - change les messages
+    // - ajoute un subscriber.error(...) pour tester la gestion d'erreur
+    // - modifie les timings ou la logique de teardown
     subscriber.next('sync: bienvenue');
 
     const timers = [
@@ -26,6 +30,7 @@ export const EX00_EXERCISE: ObservableExercise<string> = {
     'Emets des valeurs sync puis async (setTimeout) via subscriber.next().',
     'Termine proprement avec subscriber.complete().',
     'Retourne une fonction de nettoyage pour annuler tes timers.',
+    'TODO: ajoute une erreur ou change la sequence pour voir le comportement.',
   ],
   operators: ['Observable', 'next', 'complete', 'unsubscribe'],
   expected: 'Une courte séquence de 3 valeurs puis complete.',
