@@ -14,12 +14,11 @@ export const ex02OrderEvents$ = from(EX02_ORDER_EVENTS).pipe(
   concatMap((event) => timer(event.delayMs).pipe(map(() => event)))
 );
 
-export function runningRevenue$(events$: Observable<OrderEvent>): Observable<number> {
-  return events$.pipe(
-    filter((event) => event.status !== 'cancelled'),
-    map((event) => event.amount),
-    scan((acc, amount) => acc + amount, 0)
-  );
+export function runningRevenue$(_events$: Observable<OrderEvent>): Observable<number> {
+  return new Observable<number>((subscriber) => {
+    subscriber.error(new Error('TODO EX02: implémente runningRevenue$()'));
+    return () => undefined;
+  });
 }
 
 export const EX02_EXERCISE: ObservableExercise<number> = {

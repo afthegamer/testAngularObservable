@@ -14,14 +14,11 @@ export const ex06OrderEvents$ = from(EX06_ORDER_EVENTS).pipe(
   concatMap((event) => timer(event.delayMs).pipe(map(() => event)))
 );
 
-export function windowedRevenue$(events$: Observable<OrderEvent>): Observable<number> {
-  return events$.pipe(
-    filter((event) => event.status !== 'cancelled'),
-    map((event) => event.amount),
-    bufferTime(600, 300),
-    filter((buffer) => buffer.length > 0),
-    map((buffer) => buffer.reduce((sum, amount) => sum + amount, 0))
-  );
+export function windowedRevenue$(_events$: Observable<OrderEvent>): Observable<number> {
+  return new Observable<number>((subscriber) => {
+    subscriber.error(new Error('TODO EX06: implémente windowedRevenue$()'));
+    return () => undefined;
+  });
 }
 
 export const EX06_EXERCISE: ObservableExercise<number> = {

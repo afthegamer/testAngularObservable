@@ -19,22 +19,10 @@ export const EX01_ORDERS: Order[] = [
 ];
 
 export function activeCustomers$(): Observable<string[]> {
-  return from(EX01_CUSTOMERS).pipe(
-    filter((customer) => customer.active),
-    map((customer) => {
-      const orders = EX01_ORDERS.filter(
-        (order) => order.customerId === customer.id && order.status !== 'cancelled'
-      );
-      return { customer, count: orders.length };
-    }),
-    filter((entry) => entry.count > 0),
-    toArray(),
-    map((entries) =>
-      entries
-        .sort((a, b) => b.count - a.count)
-        .map((entry) => `${entry.customer.name} (${entry.count} commandes)`)
-    )
-  );
+  return new Observable<string[]>((subscriber) => {
+    subscriber.error(new Error('TODO EX01: implémente activeCustomers$()'));
+    return () => undefined;
+  });
 }
 
 export const EX01_EXERCISE: ObservableExercise<string[]> = {

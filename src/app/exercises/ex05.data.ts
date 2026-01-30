@@ -12,24 +12,10 @@ export const ex05FlakyRequest$ = from(EX05_FLAKY_REQUEST_SCRIPT).pipe(
 );
 
 export function resilientPing$(): Observable<string> {
-  return ex05FlakyRequest$.pipe(
-    timeout({ each: 500 }),
-    retry({ count: 1 }),
-    map((step) => {
-      if (step.kind === 'ok') {
-        return step.payload ?? 'ok';
-      }
-      if (step.kind === 'server-error') {
-        throw new Error(step.payload ?? 'server-error');
-      }
-      if (step.kind === 'timeout') {
-        throw new Error('timeout');
-      }
-      return step.kind;
-    }),
-    startWith('loading'),
-    catchError((error) => of(`fallback: ${error instanceof Error ? error.message : 'error'}`))
-  );
+  return new Observable<string>((subscriber) => {
+    subscriber.error(new Error('TODO EX05: implémente resilientPing$()'));
+    return () => undefined;
+  });
 }
 
 export const EX05_EXERCISE: ObservableExercise<string> = {

@@ -70,36 +70,21 @@ export const ex08FlakyRequest$ = from(EX08_FLAKY_REQUEST_SCRIPT).pipe(
   concatMap((step) => timer(step.delayMs).pipe(map(() => step)))
 );
 
-export function runningRevenue$(events$: Observable<OrderEvent>): Observable<number> {
-  return events$.pipe(
-    filter((event) => event.status !== 'cancelled'),
-    map((event) => event.amount),
-    scan((acc, amount) => acc + amount, 0)
-  );
+export function runningRevenue$(_events$: Observable<OrderEvent>): Observable<number> {
+  return new Observable<number>((subscriber) => {
+    subscriber.error(new Error('TODO EX08: implémente runningRevenue$()'));
+    return () => undefined;
+  });
 }
 
 export function packingDashboard$(
   _events$: Observable<PackingEvent>,
   _capacity$: Observable<number>
 ): Observable<PackingDashboard> {
-  const counts$ = _events$.pipe(
-    scan(
-      (state, event) => {
-        if (event.type === 'queued') {
-          return { ...state, backlog: state.backlog + 1 };
-        }
-        return { ready: state.ready + 1, backlog: Math.max(0, state.backlog - 1) };
-      },
-      { ready: 0, backlog: 0 }
-    ),
-    startWith({ ready: 0, backlog: 0 })
-  );
-
-  const capacity$ = _capacity$.pipe(startWith(0));
-
-  return combineLatest([counts$, capacity$]).pipe(
-    map(([counts, capacity]) => ({ ...counts, capacity }))
-  );
+  return new Observable<PackingDashboard>((subscriber) => {
+    subscriber.error(new Error('TODO EX08: implémente packingDashboard$()'));
+    return () => undefined;
+  });
 }
 
 export function controlTower$(
@@ -108,42 +93,10 @@ export function controlTower$(
   _capacity$: Observable<number>,
   _flaky$: Observable<FlakyStep>
 ): Observable<ControlTowerSnapshot> {
-  const sharedEvents$ = _events$.pipe(share());
-  const revenue$ = runningRevenue$(sharedEvents$).pipe(shareReplay({ bufferSize: 1, refCount: true }));
-
-  const packing$ = packingDashboard$(_packing$, _capacity$).pipe(
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
-
-  const service$ = _flaky$.pipe(
-    timeout({ each: 500 }),
-    retry({ count: 1 }),
-    map((step) => {
-      if (step.kind === 'ok') {
-        return step.payload ?? 'ok';
-      }
-      if (step.kind === 'server-error') {
-        throw new Error(step.payload ?? 'server-error');
-      }
-      if (step.kind === 'timeout') {
-        throw new Error('timeout');
-      }
-      return step.kind;
-    }),
-    startWith('loading'),
-    catchError((error) => of(`fallback: ${error instanceof Error ? error.message : 'error'}`)),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
-
-  return combineLatest([revenue$, packing$, service$]).pipe(
-    map(([revenue, packingStats, service]) => ({
-      revenue,
-      backlog: packingStats.backlog,
-      ready: packingStats.ready,
-      capacity: packingStats.capacity,
-      service
-    }))
-  );
+  return new Observable<ControlTowerSnapshot>((subscriber) => {
+    subscriber.error(new Error('TODO EX08: implémente controlTower$()'));
+    return () => undefined;
+  });
 }
 
 export const EX08_EXERCISE: ObservableExercise<ControlTowerSnapshot> = {

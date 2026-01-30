@@ -28,24 +28,10 @@ export function packingDashboard$(
   _events$: Observable<PackingEvent>,
   _capacity$: Observable<number>
 ): Observable<PackingDashboard> {
-  const counts$ = _events$.pipe(
-    scan(
-      (state, event) => {
-        if (event.type === 'queued') {
-          return { ...state, backlog: state.backlog + 1 };
-        }
-        return { ready: state.ready + 1, backlog: Math.max(0, state.backlog - 1) };
-      },
-      { ready: 0, backlog: 0 }
-    ),
-    startWith({ ready: 0, backlog: 0 })
-  );
-
-  const capacity$ = _capacity$.pipe(startWith(0));
-
-  return combineLatest([counts$, capacity$]).pipe(
-    map(([counts, capacity]) => ({ ...counts, capacity }))
-  );
+  return new Observable<PackingDashboard>((subscriber) => {
+    subscriber.error(new Error('TODO EX04: implémente packingDashboard$()'));
+    return () => undefined;
+  });
 }
 
 export const EX04_EXERCISE: ObservableExercise<PackingDashboard> = {

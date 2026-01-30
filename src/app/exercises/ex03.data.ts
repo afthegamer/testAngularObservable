@@ -25,25 +25,11 @@ export const ex03DemoSearchTerms$ = from(EX03_SEARCH_TERMS).pipe(
   concatMap((term, index) => timer(index * 180).pipe(map(() => term)))
 );
 
-export function searchCustomers$(terms$: Observable<string>): Observable<string[]> {
-  return terms$.pipe(
-    debounceTime(250),
-    map((term) => term.trim().toLowerCase()),
-    distinctUntilChanged(),
-    filter((term) => term.length > 0),
-    switchMap((term) =>
-      from(EX03_CUSTOMERS).pipe(
-        filter(
-          (customer) =>
-            customer.name.toLowerCase().includes(term) ||
-            customer.city.toLowerCase().includes(term)
-        ),
-        map((customer) => customer.name),
-        toArray(),
-        map((names) => names.slice(0, 3))
-      )
-    )
-  );
+export function searchCustomers$(_terms$: Observable<string>): Observable<string[]> {
+  return new Observable<string[]>((subscriber) => {
+    subscriber.error(new Error('TODO EX03: implémente searchCustomers$()'));
+    return () => undefined;
+  });
 }
 
 export const EX03_EXERCISE: ObservableExercise<string[]> = {

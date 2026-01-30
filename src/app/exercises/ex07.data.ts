@@ -19,34 +19,10 @@ export const EX07_ORDERS: Order[] = [
 ];
 
 export function cityLeaderboard$(): Observable<CityBreakdown[]> {
-  return from(EX07_CUSTOMERS).pipe(
-    filter((customer) => customer.active),
-    groupBy((customer) => customer.city),
-    mergeMap((group$) =>
-      group$.pipe(
-        reduce((acc, customer) => {
-          acc.activeCount += 1;
-          const orders = EX07_ORDERS.filter((order) => order.customerId === customer.id);
-          orders.forEach((order) => {
-            if (order.status === 'shipped') {
-              acc.shippedTotal += order.total;
-            }
-            if (order.status === 'processing') {
-              acc.processingCount += 1;
-            }
-          });
-          return acc;
-        }, {
-          city: group$.key,
-          activeCount: 0,
-          shippedTotal: 0,
-          processingCount: 0
-        } satisfies CityBreakdown)
-      )
-    ),
-    toArray(),
-    map((entries) => entries.sort((a, b) => b.shippedTotal - a.shippedTotal))
-  );
+  return new Observable<CityBreakdown[]>((subscriber) => {
+    subscriber.error(new Error('TODO EX07: implémente cityLeaderboard$()'));
+    return () => undefined;
+  });
 }
 
 export const EX07_EXERCISE: ObservableExercise<CityBreakdown[]> = {
