@@ -133,26 +133,25 @@ export class Ex00Component implements OnDestroy {
 function buildBasicsObservable$(): Observable<string> {
   return new Observable<string>((subscriber) => {
     /**
-     * TODO EX00
-     * 1) Découvre les callbacks: subscriber.next(), subscriber.error(), subscriber.complete().
-     * 2) Mélange synchro/async: commence par un next sync, puis programme 2-3 emissions avec setTimeout.
-     * 3) Gère le cleanup: stocke tes timeouts et retourne une fonction qui les clear pour éviter les fuites.
-     * 4) Option: injecte une erreur contrôlée pour voir le flux s’arrêter.
+     * TODO EX00 — pas besoin de connaître Angular ou RxJS, suis ces étapes :
+     * 1) Ajoute une première ligne sync : subscriber.next('coucou');
+     * 2) Ajoute 2-3 emissions espacées avec setTimeout (ex: 500ms, 1000ms).
+     * 3) Termine avec subscriber.complete(); pour signaler la fin.
+     * 4) Stocke tes timeouts dans un tableau et retourne une fonction qui fait clearTimeout sur chacun.
+     * 5) Option : remplace complete par subscriber.error(new Error('boom')) pour voir le cas erreur.
      *
-     * Exemple d’étapes possibles (remplace par ton propre code) :
-     *   const t1 = setTimeout(() => subscriber.next('tick 1'), 300);
-     *   const t2 = setTimeout(() => subscriber.next('tick 2'), 600);
-     *   const t3 = setTimeout(() => subscriber.complete(), 900);
-     *   return () => [t1, t2, t3].forEach(clearTimeout);
-     *
-     * Pendant le dev, tu peux aussi:
-     *   - essayer subscriber.error(new Error('boom')) pour voir la différence avec complete
-     *   - remplacer setTimeout par setInterval et ajouter un unsubscribe propre
+     * Exemple minimal (copie puis adapte) :
+     *   const timers: ReturnType<typeof setTimeout>[] = [];
+     *   subscriber.next('sync: bonjour');
+     *   timers.push(setTimeout(() => subscriber.next('async 1'), 500));
+     *   timers.push(setTimeout(() => subscriber.next('async 2'), 1000));
+     *   timers.push(setTimeout(() => subscriber.complete(), 1400));
+     *   return () => timers.forEach(clearTimeout);
      */
-    subscriber.error(new Error('TODO EX00: remplace ce bloc par tes emissions et ton teardown'));
+    subscriber.error(new Error('TODO EX00: remplace ce bloc par tes emissions, complete et cleanup'));
 
     return () => {
-      // TODO: nettoie tes timeouts/intervals/ressources ici
+      // TODO: nettoie tes timeouts/intervals/ressources ici (clearTimeout/clearInterval)
     };
   });
 }
@@ -163,11 +162,11 @@ export const EX00_EXERCISE: ObservableExercise<string> = {
   target: 'basicsObservable$()',
   goal: 'Comprendre les callbacks next/complete et le teardown pour des Observables faits maison.',
   steps: [
-    'Instancie un Observable en passant une fonction au constructeur.',
-    'Emets tes valeurs sync puis async (setTimeout/interval) via subscriber.next().',
-    'Termine proprement avec subscriber.complete() ou teste un subscriber.error().',
-    'Retourne une fonction de nettoyage (clearTimeout/interval, abort...).',
-    'Teste un flux qui se termine, puis un flux qui error, pour voir les comportements.',
+    'Crée un Observable avec new Observable((subscriber) => { ... }).',
+    'Emets une valeur immédiate avec subscriber.next().',
+    'Emets 1-2 valeurs plus tard avec setTimeout + subscriber.next().',
+    'Termine avec subscriber.complete() (ou teste subscriber.error() pour voir la différence).',
+    'Retourne une fonction qui clearTimeout sur tes timers pour éviter les fuites.',
   ],
   operators: ['Observable', 'next', 'complete', 'unsubscribe'],
   expected: 'Une courte séquence personnalisée puis complete (ou error selon ton test).',
