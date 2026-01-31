@@ -1,0 +1,28 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S02 — Effets & persistance</h2>
+
+  <div class="todo">
+    <p><strong>TODO S02</strong> — Remplace l effect de demo par ta propre synchro (ex: storage/api).</p>
+    <p>Fichier a modifier : <code>src/app/signals/exercises/s02.component.ts</code></p>
+  </div>
+
+  <div class="controls">
+    @for (option of options; track option) {
+      <button
+        class="choice"
+        type="button"
+        [class.active]="selection() === option"
+        (click)="setSelection(option)"
+      >
+        {{ option }}
+      </button>
+    }
+  </div>
+
+  <div class="log">
+    @for (entry of logs(); track $index) {
+      <div class="log-line">{{ entry }}</div>
+    }
+  </div>
+</section>

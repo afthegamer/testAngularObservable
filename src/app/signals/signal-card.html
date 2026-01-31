@@ -1,0 +1,37 @@
+<article class="card-shell">
+  <div class="exercise-head">
+    <span class="pill">Signal {{ exercise().id }}</span>
+    <div class="title-block">
+      <p class="label">Cible</p>
+      <p class="code">{{ exercise().target }}</p>
+      <h2>{{ exercise().title }}</h2>
+    </div>
+  </div>
+
+  <p class="goal">{{ exercise().goal }}</p>
+
+  <div class="operators">
+    @for (concept of exercise().concepts; track concept) {
+      <span class="chip">{{ concept }}</span>
+    }
+  </div>
+
+  <div class="steps">
+    <p class="label">Checklist</p>
+    <ul>
+      @for (step of exercise().steps; track step) {
+        <li>{{ step }}</li>
+      }
+    </ul>
+  </div>
+
+  @if (exercise().expected) {
+    <p class="expected">{{ exercise().expected }}</p>
+  }
+
+  @if (exercise().fileHint) {
+    <p class="hint">Fichier cible : <code>{{ exercise().fileHint }}</code></p>
+  }
+
+  <a class="detail-link" [routerLink]="exercise().route">Ouvrir l exercice</a>
+</article>

@@ -1,0 +1,35 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S01 — Filtrage avec signals</h2>
+
+  <div class="todo">
+    <p><strong>TODO S01</strong> — Ajoute tes propres filtres et adapte la logique du computed().</p>
+    <p>Fichier a modifier : <code>src/app/signals/exercises/s01.component.ts</code></p>
+  </div>
+
+  <div class="controls">
+    <label>
+      Recherche
+      <input
+        #searchInput
+        type="text"
+        [value]="searchTerm()"
+        (input)="setSearchTerm(searchInput.value)"
+        placeholder="Nom ou ville"
+      />
+    </label>
+    <button class="ghost" type="button" (click)="toggleInactive()">
+      {{ showInactive() ? 'Masquer' : 'Afficher' }} les inactifs
+    </button>
+  </div>
+
+  <div class="list">
+    @for (customer of filteredCustomers(); track customer.id) {
+      <div class="row" [class.inactive]="!customer.active">
+        <span class="name">{{ customer.name }}</span>
+        <span class="city">{{ customer.city }}</span>
+        <span class="status">{{ customer.active ? 'Actif' : 'Inactif' }}</span>
+      </div>
+    }
+  </div>
+</section>

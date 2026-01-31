@@ -1,0 +1,19 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S03 — Interop RxJS → Signals</h2>
+
+  <div class="todo">
+    <p><strong>TODO S03</strong> — Branche ton propre flux RxJS et convertis-le via toSignal().</p>
+    <p>Fichier a modifier : <code>src/app/signals/exercises/s03.component.ts</code></p>
+  </div>
+
+  <div class="summary">
+    <p>Total courant</p>
+    <h3>{{ formattedTotal() }}</h3>
+    <button class="ghost" type="button" (click)="refresh()">Rejouer le flux</button>
+  </div>
+
+  <p class="note">
+    Ce total est derive d un flux RxJS converti en signal avec toSignal().
+  </p>
+</section>

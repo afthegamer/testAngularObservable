@@ -1,0 +1,14 @@
+<div class="signals-card">
+  <p class="label">Concepts clés</p>
+  <ul>
+    @for (item of concepts(); track item) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</div>
+<div class="signals-card">
+  <p class="label">Conseils rapides</p>
+  @for (tip of tips(); track tip) {
+    <p class="hint">{{ tip }}</p>
+  }
+</div>
