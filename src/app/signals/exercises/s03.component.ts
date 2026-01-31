@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { interval, map, scan, switchMap, take } from 'rxjs';
 
-// TODO S03: remplace ce flux demo par un vrai Observable (API, store, etc.).
 const buildOrderEvents$ = () =>
   interval(400).pipe(
     take(6),
@@ -18,7 +17,6 @@ const buildOrderEvents$ = () =>
   styleUrl: './s03.component.scss',
 })
 export class S03Component {
-  // TODO S03: adapte le signal derive et le formatage si besoin.
   readonly refreshTick = signal(0);
 
   readonly runningTotal = toSignal(

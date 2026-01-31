@@ -2,21 +2,6 @@ import { SignalExercise } from './signal.types';
 
 export const SIGNAL_EXERCISES: SignalExercise[] = [
   {
-    id: 'S00',
-    route: '/signals/s00',
-    title: 'Kickstart : premier signal',
-    target: 'signal() + computed()',
-    goal: 'Creer un signal simple, le mettre a jour et exposer un computed derive.',
-    steps: [
-      'Declare un signal et un computed associe.',
-      'Utilise set() ou update() pour changer la valeur.',
-      'Expose un affichage base sur le computed.',
-    ],
-    concepts: ['signal', 'computed', 'set', 'update'],
-    expected: 'Le compteur augmente et le texte derive se met a jour.',
-    fileHint: 'src/app/signals/exercises/s00.component.ts',
-  },
-  {
     id: 'S01',
     route: '/signals/s01',
     title: 'Etat local avec signal() et computed()',

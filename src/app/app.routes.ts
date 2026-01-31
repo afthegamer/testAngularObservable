@@ -10,10 +10,6 @@ export const routes: Routes = [
     loadComponent: () => import('./signals/signals-home').then((m) => m.SignalsHome),
   },
   {
-    path: 'signals/s00',
-    loadComponent: () => import('./signals/exercises/s00.component').then((m) => m.S00Component),
-  },
-  {
     path: 'signals/s01',
     loadComponent: () => import('./signals/exercises/s01.component').then((m) => m.S01Component),
   },

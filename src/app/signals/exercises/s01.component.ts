@@ -8,7 +8,6 @@ interface Customer {
   active: boolean;
 }
 
-// TODO S01: remplace ces donnees par un tableau issu de ton propre exercice si besoin.
 const CUSTOMERS: Customer[] = [
   { id: 1, name: 'Lea', city: 'Paris', active: true },
   { id: 2, name: 'Tim', city: 'Lyon', active: true },
@@ -24,11 +23,9 @@ const CUSTOMERS: Customer[] = [
   styleUrl: './s01.component.scss',
 })
 export class S01Component {
-  // TODO S01: branche tes propres filtres ici (texte + actif).
   readonly searchTerm = signal('');
   readonly showInactive = signal(false);
 
-  // TODO S01: adapte la logique de filtre selon l exercice.
   readonly filteredCustomers = computed(() => {
     const term = this.searchTerm().toLowerCase().trim();
     const includeInactive = this.showInactive();

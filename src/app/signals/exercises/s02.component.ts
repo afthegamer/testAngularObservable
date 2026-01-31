@@ -16,19 +16,16 @@ export type Selection = (typeof OPTIONS)[number];
 export class S02Component {
   private readonly destroyRef = inject(DestroyRef);
 
-  // TODO S02: adapte cette selection et sa persistance.
   readonly selection = signal<Selection>(readInitialSelection());
   readonly logs = signal<string[]>([]);
 
   constructor() {
-    // TODO S02: remplace cet effect par ta propre logique de synchronisation.
     effect(() => {
       const value = this.selection();
       localStorage.setItem(STORAGE_KEY, value);
       this.logs.update((entries) => [`selection -> ${value}`, ...entries].slice(0, 6));
     });
 
-    // TODO S02: si besoin, adapte la gestion des events globaux.
     const handler = () => {
       const next = readInitialSelection();
       this.selection.set(next);
