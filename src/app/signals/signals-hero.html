@@ -10,21 +10,4 @@
       </div>
     }
   </div>
-
-  <div class="hero-grid">
-    @for (card of cards(); track card.label) {
-      <div class="hero-card">
-        <p class="label">{{ card.label }}</p>
-        @if (card.code) {
-          <p class="code">{{ card.code }}</p>
-        }
-        @if (card.hint) {
-          <p class="hint">{{ card.hint }}</p>
-        }
-        @for (hint of card.hints ?? []; track hint) {
-          <p class="hint">{{ hint }}</p>
-        }
-      </div>
-    }
-  </div>
 </section>

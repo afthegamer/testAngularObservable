@@ -29,7 +29,6 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
-  margin-bottom: 1.4rem;
 }
 
 .note-card {
@@ -39,38 +38,4 @@ h1 {
   padding: 0.85rem 1rem;
   color: #ddd4f7;
   font-size: 0.95rem;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
-}
-
-.hero-card {
-  background: rgba(14, 12, 28, 0.85);
-  border: 1px solid rgba(176, 141, 255, 0.2);
-  border-radius: 14px;
-  padding: 1rem;
-  color: #e7dcff;
-}
-
-.hero-card .label {
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-}
-
-.hero-card .code {
-  font-family: 'JetBrains Mono', Menlo, Consolas, monospace;
-  color: #f3ebff;
-  background: #16142a;
-  padding: 0.15rem 0.4rem;
-  border-radius: 6px;
-  display: inline-block;
-  margin-bottom: 0.35rem;
-}
-
-.hero-card .hint {
-  margin: 0.2rem 0;
-  color: #cbbff0;
 }
