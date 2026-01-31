@@ -1,0 +1,57 @@
+.signal-exercise {
+  background: #0f0b1f;
+  border: 1px solid #2a233a;
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.back {
+  color: #b9a7e8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+h2 {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.choice {
+  border: 1px solid #2a233a;
+  background: #151027;
+  color: #e6dbff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.choice.active {
+  background: #b08dff;
+  color: #140b22;
+}
+
+.log {
+  background: #141025;
+  border: 1px solid #2a233a;
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.log-line {
+  font-family: 'JetBrains Mono', Menlo, Consolas, monospace;
+  color: #cdbfff;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.log-line:last-child {
+  border-bottom: none;
+}

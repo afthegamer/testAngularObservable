@@ -1,0 +1,13 @@
+<section class="hero-shell">
+  <div class="eyebrow">Atelier Signals</div>
+  <h1>{{ title() }}</h1>
+  <p class="lede">{{ subtitle() }}</p>
+
+  <div class="note-grid">
+    @for (note of notes(); track note) {
+      <div class="note-card">
+        <p>{{ note }}</p>
+      </div>
+    }
+  </div>
+</section>
