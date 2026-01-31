@@ -1,0 +1,41 @@
+.hero-shell {
+  background: radial-gradient(circle at top left, #1a1431, #0f0b1f 60%);
+  border: 1px solid #2a233a;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: #b9a7e8;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0.4rem 0 0.65rem;
+  font-size: 2.1rem;
+}
+
+.lede {
+  color: #d4c8f0;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.note-card {
+  background: rgba(18, 14, 33, 0.85);
+  border: 1px solid #2b2343;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  color: #ddd4f7;
+  font-size: 0.95rem;
+}
