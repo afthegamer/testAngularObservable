@@ -12,7 +12,13 @@
 
   <div class="operators">
     @for (op of exercise().operators; track op) {
-      <span class="chip">{{ op }}</span>
+      <span
+        class="chip"
+        [attr.data-hint]="hints[op] || null"
+        [attr.title]="hints[op] || null"
+      >
+        {{ op }}
+      </span>
     }
   </div>
 

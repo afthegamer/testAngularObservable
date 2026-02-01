@@ -18,7 +18,28 @@ export class ExerciseCard implements OnDestroy {
 
   readonly logs = signal<string[]>([]);
   readonly running = signal(false);
-   readonly successFlash = signal(false);
+  readonly successFlash = signal(false);
+  readonly hints: Record<string, string> = {
+    Observable: 'Sequence lazy de valeurs (sync/async) avec next/error/complete.',
+    next: 'Pousse une valeur aux abonnés.',
+    complete: 'Signale la fin du flux, plus d emissions.',
+    unsubscribe: 'Annule l abonnement et le teardown associe.',
+    map: 'Transforme chaque valeur.',
+    filter: 'Garde uniquement les valeurs conformes.',
+    switchMap: 'Annule l inner Observable en cours quand une nouvelle valeur arrive.',
+    debounceTime: 'Ignore les frappes tant qu un delai n est pas ecoule.',
+    retry: 'Relance le flux en cas d erreur.',
+    timeout: 'Erreur si aucune emission dans la fenetre donnee.',
+    bufferTime: 'Groupe les emissions par fenetres temporelles.',
+    scan: 'Accumulateur (reduce) mais en temps reel.',
+    combineLatest: 'Combine la derniere valeur de chaque flux.',
+    groupBy: 'Regroupe les emissions par cle.',
+    mergeMap: 'Aplati en parallele des Observables issus de chaque valeur.',
+    reduce: 'Accumule puis emet a la completion.',
+    catchError: 'Intercepte une erreur et retourne un flux de secours.',
+    startWith: 'Prepend une valeur initiale.',
+    toArray: 'Collecte les valeurs dans un tableau a la completion.',
+  };
 
   private previewSubscription: Subscription | null = null;
   private timeoutId: number | null = null;

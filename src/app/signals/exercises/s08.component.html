@@ -1,0 +1,12 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S08 — Flux continu</h2>
+
+  <div class="summary">
+    <p>Flux type websocket</p>
+    <h3>{{ formatted() }}</h3>
+    <button class="ghost" type="button" (click)="refresh()">Rejouer le flux</button>
+  </div>
+
+  <p class="note">toSignal() reconstruit un signal depuis un interval switchMap + scan.</p>
+</section>

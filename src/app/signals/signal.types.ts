@@ -8,4 +8,7 @@ export interface SignalExercise {
   concepts: string[];
   expected?: string;
   fileHint?: string;
+  previewNote?: string;
+  previewTimeoutMs?: number;
+  preview?: () => import('rxjs').Observable<unknown>;
 }

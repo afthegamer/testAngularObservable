@@ -1,0 +1,17 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S05 — Mini signalStore</h2>
+
+  <div class="controls">
+    <button class="ghost" type="button" (click)="dec()">-1</button>
+    <button class="ghost" type="button" (click)="inc()">+1</button>
+    <button class="ghost" type="button" (click)="toggleTheme()">Basculer theme</button>
+    <button class="ghost" type="button" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="summary">
+    <p>Etat global local</p>
+    <h3>{{ summary() }}</h3>
+    <p class="note">TODO S05: brancher ce store sur d autres composants si besoin.</p>
+  </div>
+</section>

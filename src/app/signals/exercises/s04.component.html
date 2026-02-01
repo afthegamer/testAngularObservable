@@ -1,0 +1,34 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S04 — Linked signals</h2>
+
+  <div class="controls">
+    <label>
+      Quantité
+      <input
+        type="number"
+        min="0"
+        [value]="quantity()"
+        (input)="setQuantity(($any($event.target).valueAsNumber || 0))"
+      />
+    </label>
+
+    <label>
+      Prix unitaire
+      <input
+        type="number"
+        min="0"
+        [value]="unitPrice()"
+        (input)="setUnitPrice(($any($event.target).valueAsNumber || 0))"
+      />
+    </label>
+
+    <button class="ghost" type="button" (click)="reset()">Reset</button>
+  </div>
+
+  <div class="summary">
+    <p>Total</p>
+    <h3>{{ total() }} €</h3>
+    <p class="note">Le total est derive d un computed() lie aux 2 signals.</p>
+  </div>
+</section>

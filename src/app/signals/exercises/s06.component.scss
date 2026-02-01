@@ -1,0 +1,55 @@
+.signal-exercise {
+  background: #0f0b1f;
+  border: 1px solid #2a233a;
+  border-radius: 18px;
+  padding: 1.75rem;
+}
+
+.back {
+  color: #b9a7e8;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+h2 {
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+button.ghost {
+  border: 1px solid #b08dff;
+  background: transparent;
+  color: #e6dbff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.status {
+  background: #151027;
+  border: 1px solid #2a233a;
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  color: #dcd2ff;
+}
+
+.status ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.error {
+  color: #ff9bbb;
+}
+
+.note {
+  margin-top: 0.75rem;
+  color: #c6b6ef;
+}

@@ -12,7 +12,13 @@
 
   <div class="operators">
     @for (concept of exercise().concepts; track concept) {
-      <span class="chip">{{ concept }}</span>
+      <span
+        class="chip"
+        [attr.data-hint]="getHint(concept) || null"
+        [attr.title]="getHint(concept) || null"
+      >
+        {{ concept }}
+      </span>
     }
   </div>
 
@@ -31,6 +37,25 @@
 
   @if (exercise().fileHint) {
     <p class="hint">Fichier cible : <code>{{ exercise().fileHint }}</code></p>
+  }
+
+  @if (exercise().preview) {
+    <div class="preview">
+      <button class="ghost" type="button" (click)="runPreview()" [disabled]="running()">
+        Preview
+      </button>
+      <span class="inline-hint">
+        fenetre de {{ exercise().previewTimeoutMs ?? 4000 }} ms
+      </span>
+    </div>
+  }
+
+  @if (logs().length) {
+    <div class="log">
+      @for (log of logs(); track $index) {
+        <div class="log-line">{{ log }}</div>
+      }
+    </div>
   }
 
   <a class="detail-link" [routerLink]="exercise().route">Ouvrir l exercice</a>

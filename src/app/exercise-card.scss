@@ -48,6 +48,31 @@
   padding: 0.35rem 0.65rem;
   border-radius: 12px;
   font-size: 0.85rem;
+  position: relative;
+  cursor: default;
+}
+
+.chip::after {
+  content: attr(data-hint);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: #0b1623;
+  color: #d9f7f0;
+  border: 1px solid #1e2435;
+  border-radius: 8px;
+  padding: 0.35rem 0.55rem;
+  font-size: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+}
+
+.chip:hover::after {
+  opacity: 1;
 }
 
 .steps ul {

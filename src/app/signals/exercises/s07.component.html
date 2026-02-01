@@ -1,0 +1,22 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S07 — Debounce</h2>
+
+  <div class="controls">
+    <label>
+      Recherche
+      <input
+        type="text"
+        [value]="searchTerm()"
+        (input)="setSearchTerm(($any($event.target).value ?? ''))"
+        placeholder="Tape et observe le debounce"
+      />
+    </label>
+  </div>
+
+  <div class="summary">
+    <p>Debounced term</p>
+    <h3>{{ results().length ? results().join(', ') : '...' }}</h3>
+    <p class="note">Le debounceTime(300ms) est applique via toObservable -> toSignal.</p>
+  </div>
+</section>

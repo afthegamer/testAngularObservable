@@ -1,0 +1,28 @@
+<section class="signal-exercise">
+  <a class="back" routerLink="/signals">← Retour aux exercises Signals</a>
+  <h2>Exercice S06 — Chargement async</h2>
+
+  <div class="controls">
+    <button class="ghost" type="button" (click)="load()">Charger</button>
+    <button class="ghost" type="button" (click)="refresh()">Refresh</button>
+    <button class="ghost" type="button" (click)="cancel()">Annuler</button>
+  </div>
+
+  <div class="status">
+    <p>Status: <strong>{{ status() }}</strong></p>
+    @if (error()) {
+      <p class="error">{{ error() }}</p>
+    }
+    @if (data().length) {
+      <ul>
+        @for (item of data(); track item) {
+          <li>{{ item }}</li>
+        }
+      </ul>
+    }
+  </div>
+
+  <p class="note">
+    TODO S06: remplace setTimeout par une vraie requete (fetch) et gere le cleanup pour annuler.
+  </p>
+</section>
